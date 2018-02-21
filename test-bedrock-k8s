@@ -6,7 +6,7 @@ function setK8sRegion() {
     export KUBECONFIG="${HOME}/.kube/${1}.kubeconfig"
 }
 
-set -ex
+set -exo pipefail
 
 BASE_URL="https://www.mozilla.org"
 REGIONS=( oregon-b frankfurt tokyo )
@@ -20,4 +20,6 @@ for region in $REGIONS; do
                 --env "MARK_EXPRESSION=headless" \
                 --env "PYTEST_PROCESSES=5" \
                 --command -- bin/run-integration-tests.sh
+    echo "Exit code: $?"
+    echo "Config: $KUBECONFIG"
 done
