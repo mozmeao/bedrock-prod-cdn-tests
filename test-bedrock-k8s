@@ -13,7 +13,8 @@ REGIONS=( oregon-b frankfurt tokyo )
 
 for region in $REGIONS; do
     setK8sRegion $region
-    kubectl run --attach --rm \
+    kubectl run bedrock-prod-cdn-test \
+                --attach --rm \
                 --image mozorg/bedrock_test:latest \
                 --env "BASE_URL=${BASE_URL}" \
                 --env "MARK_EXPRESSION=headless" \
